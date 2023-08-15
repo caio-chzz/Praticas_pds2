@@ -3,6 +3,7 @@ package control;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import modelo.Galos;
 
@@ -35,9 +36,27 @@ public class galosDAO {
 		} 
 		
 		return false;
-		
-		
 	}
+	
+	public ArrayList<Galos> listar(){
+		
+Conexao c = Conexao.getInstancia();
+		
+		Connection cn = c.conectar();
+		
+		ArrayList<Galos> galon = new ArrayList(); 
+		
+		String query = ")";
+				
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	
