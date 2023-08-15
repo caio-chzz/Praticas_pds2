@@ -72,7 +72,7 @@ public class galosDAO {
 			
 		}
 		
-		c.fecharConexao()
+		c.fecharConexao();
 		
 		return galons;
 	}
