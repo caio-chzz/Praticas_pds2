@@ -77,11 +77,50 @@ public class galosDAO {
 		return galons;
 	}
 	
+	public boolean excluir (Galos g) {
+		
+		Conexao c = Conexao.getInstancia();
+		Connection con = c.conectar();
+		
+		String query = "DELETE FROM galos WHERE id_galo = ?";
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, g.getIdGalo());
+			ps.executeUpdate();
+			
+			c.fecharConexao();
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
-	
-	
-	
-	
+	public boolean atualiar (Galos g) {
+		
+		Conexao c = Conexao.getInstancia();
+		Connection con = c.conectar();
+		
+		String query = "UPDATE galos SET raca_galo = ? WHERE id_galo = ?";
+		
+		try {
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setString(1, g.getRaca());
+			ps.setInt(2, g.getIdGalo());
+			ps.executeUpdate();
+			
+			c.fecharConexao();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 	
 	
 	
