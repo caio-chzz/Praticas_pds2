@@ -34,8 +34,10 @@ public class galosDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		
+		}  finally {
+			c.fecharConexao();
+		}
+		 
 		return false;
 	}
 	
@@ -70,6 +72,8 @@ public class galosDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
+		} finally {
+			c.fecharConexao();
 		}
 		
 		c.fecharConexao();
@@ -94,6 +98,8 @@ public class galosDAO {
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+		} finally {
+			c.fecharConexao();
 		}
 		
 		return false;
@@ -117,6 +123,8 @@ public class galosDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			c.fecharConexao();
 		}
 		
 		return false;
