@@ -118,11 +118,12 @@ public class galosDAO {
 	        
 	        return true;
 	    } catch (SQLException e) {
-	        e.printStackTrace();
+	        e.printStackTrace(); 
+	        
 	    } finally {
 	        c.fecharConexao();
 	    }
 	    
 	    return false;
 	}
-
+}
