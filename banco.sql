@@ -1,9 +1,11 @@
-CREATE DATABASE rinha_de_galo;
+CREATE DATABASE IF NOT EXISTS rinha_de_galo;
 
 USE rinha_de_galo;
 
-CREATE TABLE galos(
-  id_galo int,
-  raca_galo varchar(255),
-  poder_de_combate int
+CREATE TABLE IF NOT EXISTS galos (
+  id_galo INT,
+  raca_galo VARCHAR(255),
+  poder_de_combate INT,
+  names VARCHAR(255),  
+  life INT
 );

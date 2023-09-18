@@ -14,7 +14,7 @@ public class galosDAO {
 	    Conexao c = Conexao.getInstancia();
 	    Connection cn = c.conectar();
 	    
-	    String query = "INSERT INTO `galos` (`name`, `raca_galo`, `poder_de_combate`, `life`) VALUES (?, ?, ?, ?)";
+	    String query = "INSERT INTO `galos` (`names`, `raca_galo`, `poder_de_combate`, `life`) VALUES (?, ?, ?, ?)";
 	    
 	    try {
 	        PreparedStatement ps = cn.prepareStatement(query);
@@ -52,7 +52,7 @@ public class galosDAO {
 	        while (rs.next()) {
 	            int idGalo = rs.getInt("id_galo");
 	            String raca = rs.getString("raca_galo");
-	            String name = rs.getString("name");
+	            String name = rs.getString("names");
 	            int power = rs.getInt("poder_de_combate");
 	            int life = rs.getInt("life");
 	                    
@@ -103,7 +103,7 @@ public class galosDAO {
 	    Conexao c = Conexao.getInstancia();
 	    Connection con = c.conectar();
 	    
-	    String query = "UPDATE galos SET raca_galo = ?, name = ?, poder_de_combate = ?, life = ? WHERE id_galo = ?";
+	    String query = "UPDATE galos SET raca_galo = ?, names = ?, poder_de_combate = ?, life = ? WHERE id_galo = ?";
 	    
 	    try {
 	        PreparedStatement ps = con.prepareStatement(query);
