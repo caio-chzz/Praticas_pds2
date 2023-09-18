@@ -10,7 +10,8 @@ public class Conexao {
 		private static final String DATABASE = "rinha_de_galo";
 		private static final String USER     = "root";
 		private static final String PSW      = "aluno";
-		private static final String URL      = "sjdbc:mysql://localhot/";
+		private static final String URL = "jdbc:mysql://localhost/";
+
 		
 		
 		
