@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import control.galosDAO;
+import control.GaloDAO;
 import modelo.Galos;
 
 import java.awt.Font;
@@ -28,18 +28,7 @@ public class GaloGUI extends JFrame {
     private JTextField powerTextField;
     private JTextField lifeTextField;
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    GaloGUI frame = new GaloGUI();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    
 
     public GaloGUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -93,7 +82,7 @@ public class GaloGUI extends JFrame {
             	  if (idTextField.getText().isEmpty() || racaTextField.getText().isEmpty() ||
             	       nameTextField.getText().isEmpty() || powerTextField.getText().isEmpty() ||
             	       lifeTextField.getText().isEmpty()) {
-            	       JOptionPane.showMessageDialog(null, "Certifique-se de preencher todos os campos.");
+            	       JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
             	       return; 
             	        }
 
@@ -114,13 +103,16 @@ public class GaloGUI extends JFrame {
             	    novoGalo.setLife(vida);
 
             	    
-            	    galosDAO dao = new galosDAO();
+            	    GaloDAO dao = new GaloDAO();
             	    boolean inseridoComSucesso = dao.inserir(novoGalo);
 
             	    if (inseridoComSucesso) {
             	        JOptionPane.showMessageDialog(null, "Galo inserido com sucesso!");
+            	        EnterUI aa = new EnterUI();
+                        aa.setVisible(true);
+                        dispose(); 
             	    } else {
-            	        JOptionPane.showMessageDialog(null, "Erro ao inserir o galo.");
+            	        JOptionPane.showMessageDialog(null, "Erro ");
             	    }
             	} catch (NumberFormatException ex) {
             	    JOptionPane.showMessageDialog(null, "Certifique-se de que os campos numéricos estão preenchidos corretamente.");

@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import control.galosDAO;
+import control.GaloDAO;
 import modelo.Galos;
 
 import java.awt.event.ActionEvent;
@@ -33,18 +33,7 @@ public class ListaUI extends JFrame {
         return instance;
     }
 
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    ListaUI frame = new ListaUI();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+    
 
     public ListaUI() {
     	instance = this;
@@ -87,9 +76,23 @@ public class ListaUI extends JFrame {
 
                 int selectedGaloID = (int) table.getValueAt(selectedRow, 0);
 
-                EditeUI editeUI = new EditeUI(selectedGaloID);
-                editeUI.setVisible(true);
+                Galos galoParaEditar = buscarGaloPorID(selectedGaloID);
+
+                if (galoParaEditar != null) {
+                    EditeUI editeUI = new EditeUI(galoParaEditar);
+                    editeUI.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível encontrar o galo com o ID selecionado.");
+                }
             }
+
+            private Galos buscarGaloPorID(int id) {
+                GaloDAO dao = new GaloDAO();
+                Galos galo = new Galos();
+                galo.setIdGalo(id);
+                return dao.buscarPorID(galo);
+            }
+
         });
     }
 
@@ -101,7 +104,7 @@ public class ListaUI extends JFrame {
         model.addColumn("Poder");
         model.addColumn("Vida");
 
-        galosDAO dao = new galosDAO();
+        GaloDAO dao = new GaloDAO();
         ArrayList<Galos> galos = dao.listar();
 
         for (Galos galo : galos) {

@@ -14,31 +14,26 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import control.galosDAO;
+import control.GaloDAO;
 import modelo.Galos;
 
 public class EditeUI extends JFrame {
+	
+	 private JPanel contentPane;
+	    private JTextField idTextField;
+	    private JTextField racaTextField;
+	    private JTextField nameTextField;
+	    private JTextField powerTextField;
+	    private JTextField lifeTextField;
+	    private Galos galoParaEditar; 
 
-    private JPanel contentPane;
-    private JTextField idTextField;
-    private JTextField racaTextField;
-    private JTextField nameTextField;
-    private JTextField powerTextField;
-    private JTextField lifeTextField;
-    private int galoID;
-    private ListaUI listaUI;
-
-   
-
-    public EditeUI(int galoID) {
-        this.galoID = galoID; 
-        initComponents(); 
-    }
-
+	    public EditeUI(Galos galoParaEditar) {
+	        this.galoParaEditar = galoParaEditar; 
+	        initComponents();
+	    }
+  
     private void initComponents() {
-    	 this.galoID = galoID;
-    	    this.listaUI = listaUI; 
-    	    initComponents();
+    	
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1193, 724);
         contentPane = new JPanel();
@@ -77,6 +72,11 @@ public class EditeUI extends JFrame {
         lifeTextField = new JTextField(10);
         lifeTextField.setBackground(new Color(192, 192, 192));
         lifeTextField.setBounds(405, 430, 441, 36);
+        idTextField.setText(String.valueOf(galoParaEditar.getIdGalo()));
+        racaTextField.setText(galoParaEditar.getRaca());
+        nameTextField.setText(galoParaEditar.getName());
+        powerTextField.setText(String.valueOf(galoParaEditar.getPower()));
+        lifeTextField.setText(String.valueOf(galoParaEditar.getLife()));
 
         JButton updateButton = new JButton("Atualizar galo");
         updateButton.setBackground(new Color(0, 128, 128));
@@ -107,12 +107,14 @@ public class EditeUI extends JFrame {
                     galo.setPower(poder);
                     galo.setLife(vida);
 
-                    galosDAO dao = new galosDAO();
+                    GaloDAO dao = new GaloDAO();
                     boolean atualizadoComSucesso = dao.atualizar(galo);
 
                     if (atualizadoComSucesso) {
                         JOptionPane.showMessageDialog(null, "Galo atualizado com sucesso!");
-                        
+                        ListaUI gansomanso = new ListaUI();
+                        gansomanso.setVisible(true);
+                        dispose();
                         ListaUI.getInstance().carregarDados();
                     } else {
                         JOptionPane.showMessageDialog(null, "Erro ao atualizar o galo.");
@@ -143,10 +145,13 @@ public class EditeUI extends JFrame {
                     Galos galo = new Galos();
                     galo.setIdGalo(id);
 
-                    galosDAO dao = new galosDAO();
+                    GaloDAO dao = new GaloDAO();
                     boolean excluidoComSucesso = dao.excluir(galo);
                     if (excluidoComSucesso) {
                         JOptionPane.showMessageDialog(null, "Galo excluído com sucesso!");
+                        ListaUI gansomanso = new ListaUI();
+                        gansomanso.setVisible(true);
+                        dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Erro ao excluir o galo.");
                     }
