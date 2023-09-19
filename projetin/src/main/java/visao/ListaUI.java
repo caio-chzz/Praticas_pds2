@@ -114,4 +114,5 @@ public class ListaUI extends JFrame {
 
         table.setModel(model);
     }
+    
 }
