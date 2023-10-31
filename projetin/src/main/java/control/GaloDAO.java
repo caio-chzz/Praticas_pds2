@@ -154,4 +154,24 @@ public class GaloDAO {
 
         return null;
     }
+
+    public void excloitudo(){
+        Conexao c = Conexao.getInstancia();
+        Connection con = c.conectar();
+
+        String query = "DELETE FROM galos";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.executeUpdate();
+
+            c.fecharConexao();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            c.fecharConexao();
+        }
+    }
+
 }
