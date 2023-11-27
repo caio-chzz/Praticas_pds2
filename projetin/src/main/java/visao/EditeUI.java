@@ -14,6 +14,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import control.GaloDAO;
 import modelo.Galos;
 
@@ -142,44 +144,47 @@ public class EditeUI extends JFrame {
         deleteButton.setBounds(523, 558, 245, 53);
 
         deleteButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (idTextField.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Informe o ID do galo a ser excluído.");
-                    return;
-                }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (idTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Informe o ID do galo a ser excluído.");
+            return;
+        }
 
-                // Adicionando verificação de senha para excluir
-                JPasswordField passwordField = new JPasswordField();
-                int result = JOptionPane.showConfirmDialog(null, passwordField, "Digite a senha para excluir o galo:",
-                        JOptionPane.OK_CANCEL_OPTION);
-                char[] password = (result == JOptionPane.OK_OPTION) ? passwordField.getPassword() : null;
-                String senhaDigitada = new String(password);
+        // Adicionando verificação de senha para excluir
+        JPasswordField passwordField = new JPasswordField();
+        int result = JOptionPane.showConfirmDialog(null, passwordField, "Digite a senha para excluir o galo:",
+                JOptionPane.OK_CANCEL_OPTION);
+        char[] password = (result == JOptionPane.OK_OPTION) ? passwordField.getPassword() : null;
+        String senhaDigitada = new String(password);
 
-                if (senhaDigitada.equals(galoParaEditar.getSenha())) {
-                    try {
-                        int id = Integer.parseInt(idTextField.getText());
-                        Galos galo = new Galos();
-                        galo.setIdGalo(id);
+        // Criptografa a senha digitada pelo usuário
+        String senhaDigitadaCriptografada = BCrypt.hashpw(senhaDigitada, BCrypt.gensalt());
 
-                        GaloDAO dao = new GaloDAO();
-                        boolean excluidoComSucesso = dao.excluir(galo);
-                        if (excluidoComSucesso) {
-                            JOptionPane.showMessageDialog(null, "Galo excluído com sucesso!");
-                            ListaUI.getInstance().carregarDados();
-                            dispose();
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Erro ao excluir o galo.");
-                        }
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(null, "Certifique-se de que o ID é um número válido.");
-                        ex.printStackTrace();
-                    }
+        if (senhaDigitadaCriptografada.equals(galoParaEditar.getSenha())) {
+            try {
+                int id = Integer.parseInt(idTextField.getText());
+                Galos galo = new Galos();
+                galo.setIdGalo(id);
+
+                GaloDAO dao = new GaloDAO();
+                boolean excluidoComSucesso = dao.excluir(galo);
+                if (excluidoComSucesso) {
+                    JOptionPane.showMessageDialog(null, "Galo excluído com sucesso!");
+                    ListaUI.getInstance().carregarDados();
+                    dispose();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Senha incorreta. Exclusão cancelada.");
+                    JOptionPane.showMessageDialog(null, "Erro ao excluir o galo.");
                 }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Certifique-se de que o ID é um número válido.");
+                ex.printStackTrace();
             }
-        });
+        } else {
+            JOptionPane.showMessageDialog(null, "Senha incorreta. Exclusão cancelada.");
+        }
+    }
+});
 
         contentPane.setLayout(null);
 

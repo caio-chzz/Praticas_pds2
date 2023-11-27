@@ -4,10 +4,11 @@ public class Galos {
 
     private int idGalo;
     private String raca;
-    private String name; 
+    private String name;
     private int power;
     private int life;
-    private String senha; 
+    private String senha;  // Senha em texto simples
+    private String senhaCriptografada;  // Senha criptografada
 
     public int getIdGalo() {
         return idGalo;
@@ -33,7 +34,7 @@ public class Galos {
         this.power = power;
     }
 
-    public String getName() { 
+    public String getName() {
         return name;
     }
 
@@ -55,5 +56,13 @@ public class Galos {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public String getSenhaCriptografada() {
+        return senhaCriptografada;
+    }
+
+    public void setSenhaCriptografada(String senhaCriptografada) {
+        this.senhaCriptografada = senhaCriptografada;
     }
 }

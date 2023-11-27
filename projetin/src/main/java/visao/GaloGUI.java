@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import control.GaloDAO;
 import modelo.Galos;
 
@@ -78,7 +80,7 @@ public class GaloGUI extends JFrame {
         addButton.setFont(new Font("Tahoma", Font.BOLD, 20));
         addButton.setBounds(488, 557, 245, 53);
 
-        addButton.addActionListener(new ActionListener() {
+         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (idTextField.getText().isEmpty() || racaTextField.getText().isEmpty() ||
@@ -102,7 +104,10 @@ public class GaloGUI extends JFrame {
                     novoGalo.setName(nome);
                     novoGalo.setPower(poder);
                     novoGalo.setLife(vida);
-                    novoGalo.setSenha(senha);
+
+                    // Use BCrypt para criptografar a senha antes de armazenar no objeto
+                    String senhaCriptografada = BCrypt.hashpw(senha, BCrypt.gensalt());
+                    novoGalo.setSenha(senhaCriptografada);
 
                     GaloDAO dao = new GaloDAO();
                     boolean inseridoComSucesso = dao.inserir(novoGalo);

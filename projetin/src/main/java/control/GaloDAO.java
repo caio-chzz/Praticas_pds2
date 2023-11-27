@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.mindrot.jbcrypt.BCrypt; // Certifique-se de importar a classe BCrypt
 
 import modelo.Galos;
 
@@ -23,7 +24,11 @@ public class GaloDAO {
             ps.setInt(3, x.getPower());
             ps.setString(4, x.getName());
             ps.setInt(5, x.getLife());
-            ps.setString(6, x.getSenha()); 
+            
+            // Use BCrypt para criptografar a senha antes de armazenar no banco de dados
+            String senhaCriptografada = BCrypt.hashpw(x.getSenha(), BCrypt.gensalt());
+            ps.setString(6, senhaCriptografada);
+
             ps.executeUpdate();
 
             return true;
@@ -97,6 +102,7 @@ public class GaloDAO {
         
         return false;
     }
+
     public boolean atualizar(Galos g) {
         Conexao c = Conexao.getInstancia();
         Connection con = c.conectar();
@@ -109,7 +115,11 @@ public class GaloDAO {
             ps.setString(2, g.getName());
             ps.setInt(3, g.getPower());
             ps.setInt(4, g.getLife());
-            ps.setString(5, g.getSenha()); 
+            
+            // Use BCrypt para criptografar a nova senha antes de atualizar no banco de dados
+            String senhaCriptografada = BCrypt.hashpw(g.getSenha(), BCrypt.gensalt());
+            ps.setString(5, senhaCriptografada);
+            
             ps.setInt(6, g.getIdGalo());
             ps.executeUpdate();
             
@@ -124,7 +134,6 @@ public class GaloDAO {
         
         return false;
     }
-
     public Galos buscarPorID(Galos g) {
         Conexao c = Conexao.getInstancia();
         Connection con = c.conectar();
