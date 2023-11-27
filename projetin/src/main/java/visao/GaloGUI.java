@@ -25,8 +25,7 @@ public class GaloGUI extends JFrame {
     private JTextField nameTextField;
     private JTextField powerTextField;
     private JTextField lifeTextField;
-
-    
+    private JTextField senhaTextField;
 
     public GaloGUI() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,6 +50,9 @@ public class GaloGUI extends JFrame {
         JLabel lifeLabel = new JLabel("Vida:");
         lifeLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
         lifeLabel.setBounds(136, 425, 157, 36);
+        JLabel senhaLabel = new JLabel("Senha:");
+        senhaLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+        senhaLabel.setBounds(136, 500, 213, 36);
 
         idTextField = new JTextField(10);
         idTextField.setBackground(new Color(192, 192, 192));
@@ -67,6 +69,9 @@ public class GaloGUI extends JFrame {
         lifeTextField = new JTextField(10);
         lifeTextField.setBackground(new Color(192, 192, 192));
         lifeTextField.setBounds(405, 430, 441, 36);
+        senhaTextField = new JTextField(10);
+        senhaTextField.setBackground(new Color(192, 192, 192));
+        senhaTextField.setBounds(405, 500, 441, 36);
 
         JButton addButton = new JButton("Adicionar Galo");
         addButton.setBackground(new Color(0, 128, 128));
@@ -76,47 +81,45 @@ public class GaloGUI extends JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	
-            	  if (idTextField.getText().isEmpty() || racaTextField.getText().isEmpty() ||
-            	       nameTextField.getText().isEmpty() || powerTextField.getText().isEmpty() ||
-            	       lifeTextField.getText().isEmpty()) {
-            	       JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
-            	       return; 
-            	        }
+                if (idTextField.getText().isEmpty() || racaTextField.getText().isEmpty() ||
+                        nameTextField.getText().isEmpty() || powerTextField.getText().isEmpty() ||
+                        lifeTextField.getText().isEmpty() || senhaTextField.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Preencha todos os campos.");
+                    return;
+                }
 
-            	try {
-            	    
-            	    int id = Integer.parseInt(idTextField.getText());
-            	    String raca = racaTextField.getText();
-            	    String nome = nameTextField.getText();
-            	    int poder = Integer.parseInt(powerTextField.getText());
-            	    int vida = Integer.parseInt(lifeTextField.getText());
+                try {
+                    int id = Integer.parseInt(idTextField.getText());
+                    String raca = racaTextField.getText();
+                    String nome = nameTextField.getText();
+                    int poder = Integer.parseInt(powerTextField.getText());
+                    int vida = Integer.parseInt(lifeTextField.getText());
+                    String senha = senhaTextField.getText();
 
-            	    
-            	    Galos novoGalo = new Galos();
-            	    novoGalo.setIdGalo(id);
-            	    novoGalo.setRaca(raca);
-            	    novoGalo.setName(nome);
-            	    novoGalo.setPower(poder);
-            	    novoGalo.setLife(vida);
+                    Galos novoGalo = new Galos();
+                    novoGalo.setIdGalo(id);
+                    novoGalo.setRaca(raca);
+                    novoGalo.setName(nome);
+                    novoGalo.setPower(poder);
+                    novoGalo.setLife(vida);
+                    novoGalo.setSenha(senha);
 
-            	    
-            	    GaloDAO dao = new GaloDAO();
-            	    boolean inseridoComSucesso = dao.inserir(novoGalo);
+                    GaloDAO dao = new GaloDAO();
+                    boolean inseridoComSucesso = dao.inserir(novoGalo);
 
-            	    if (inseridoComSucesso) {
-            	        JOptionPane.showMessageDialog(null, "Galo inserido com sucesso!");
-            	        EnterUI aa = new EnterUI();
+                    if (inseridoComSucesso) {
+                        JOptionPane.showMessageDialog(null, "Galo inserido com sucesso!");
+                        EnterUI aa = new EnterUI();
                         aa.setVisible(true);
-                        dispose(); 
-            	    } else {
-            	        JOptionPane.showMessageDialog(null, "Erro ");
-            	    }
-            	} catch (NumberFormatException ex) {
-            	    JOptionPane.showMessageDialog(null, "Certifique-se de que os campos numéricos estão preenchidos corretamente.");
-            	    ex.printStackTrace();
-            	}
-
+                        dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Erro ");
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Certifique-se de que os campos numéricos estão preenchidos corretamente.");
+                    ex.printStackTrace();
+                }
             }
         });
         contentPane.setLayout(null);
@@ -131,48 +134,55 @@ public class GaloGUI extends JFrame {
         contentPane.add(powerTextField);
         contentPane.add(lifeLabel);
         contentPane.add(lifeTextField);
+        contentPane.add(senhaLabel);
+        contentPane.add(senhaTextField);
         contentPane.add(addButton);
-        
+
         JLabel lblAdicioneSeuGalo = new JLabel("ADICIONE SEU ");
         lblAdicioneSeuGalo.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
         lblAdicioneSeuGalo.setBounds(405, 29, 167, 36);
         contentPane.add(lblAdicioneSeuGalo);
-        
+
         JLabel lblGaloDeGuerra = new JLabel("GALO DE GUERRA!!!!");
         lblGaloDeGuerra.setForeground(new Color(255, 0, 0));
         lblGaloDeGuerra.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
         lblGaloDeGuerra.setBounds(565, 29, 463, 36);
         contentPane.add(lblGaloDeGuerra);
-        
+
         JLabel lblGaloDeGuerra_1 = new JLabel("*");
         lblGaloDeGuerra_1.setForeground(Color.RED);
         lblGaloDeGuerra_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
         lblGaloDeGuerra_1.setBounds(193, 109, 31, 36);
         contentPane.add(lblGaloDeGuerra_1);
-        
+
         JLabel lblGaloDeGuerra_1_1 = new JLabel("*");
         lblGaloDeGuerra_1_1.setForeground(Color.RED);
         lblGaloDeGuerra_1_1.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
         lblGaloDeGuerra_1_1.setBounds(217, 195, 31, 36);
         contentPane.add(lblGaloDeGuerra_1_1);
-        
+
         JLabel lblGaloDeGuerra_1_2 = new JLabel("*");
         lblGaloDeGuerra_1_2.setForeground(Color.RED);
         lblGaloDeGuerra_1_2.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
         lblGaloDeGuerra_1_2.setBounds(206, 270, 31, 36);
         contentPane.add(lblGaloDeGuerra_1_2);
-        
+
         JLabel lblGaloDeGuerra_1_3 = new JLabel("*");
         lblGaloDeGuerra_1_3.setForeground(Color.RED);
         lblGaloDeGuerra_1_3.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
         lblGaloDeGuerra_1_3.setBounds(337, 350, 31, 36);
         contentPane.add(lblGaloDeGuerra_1_3);
-        
+
         JLabel lblGaloDeGuerra_1_4 = new JLabel("*");
         lblGaloDeGuerra_1_4.setForeground(Color.RED);
         lblGaloDeGuerra_1_4.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
         lblGaloDeGuerra_1_4.setBounds(217, 425, 31, 36);
         contentPane.add(lblGaloDeGuerra_1_4);
 
+        JLabel lblGaloDeGuerra_1_5 = new JLabel("*");
+        lblGaloDeGuerra_1_5.setForeground(Color.RED);
+        lblGaloDeGuerra_1_5.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 20));
+        lblGaloDeGuerra_1_5.setBounds(217, 500, 31, 36);
+        contentPane.add(lblGaloDeGuerra_1_5);
     }
 }

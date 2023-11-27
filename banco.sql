@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS galos (
   raca_galo VARCHAR(255),
   poder_de_combate INT,
   names VARCHAR(255),  
-  life INT
+  life INT,
+  senha VARCHAR(255) 
 );

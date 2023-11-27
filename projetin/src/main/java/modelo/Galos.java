@@ -7,6 +7,7 @@ public class Galos {
     private String name; 
     private int power;
     private int life;
+    private String senha; 
 
     public int getIdGalo() {
         return idGalo;
@@ -46,5 +47,13 @@ public class Galos {
 
     public void setLife(int life) {
         this.life = life;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
