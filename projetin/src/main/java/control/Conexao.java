@@ -57,10 +57,10 @@ public class Conexao implements AutoCloseable {
     private static Conexao instancia;
 
     private static final String DATABASE = "rinha_de_galo";
-    private static final String USER = "caio";
+    private static final String USER = "";
     private static final String HOST = "rinha-de-galo99-do-user-14972645-0.c.db.ondigitalocean.com";
     private static final int PORTA = 25060;
-    private static final String PSW = "AVNS_hUdV2AgeE1JtSjVA3s6";
+    private static final String PSW = "";
     private static final String URL = "jdbc:mysql://" + HOST + ":" + PORTA + "/" + DATABASE + "?serverTimezone=UTC";
 
     private Conexao() {
