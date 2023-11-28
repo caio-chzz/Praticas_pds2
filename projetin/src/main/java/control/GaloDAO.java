@@ -34,9 +34,9 @@ public class GaloDAO {
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            c.fecharConexao();
-        }
+        } //finally {
+            //c.fecharConexao();
+        //}
 
         return false;
     }
@@ -70,11 +70,11 @@ public class GaloDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            c.fecharConexao();
-        }
+        } //finally {
+            //c.fecharConexao();
+        //}
 
-        c.fecharConexao();
+        //c.fecharConexao();
 
         return galons;
     }
@@ -91,14 +91,14 @@ public class GaloDAO {
             ps.setString(2, g.getSenha()); 
             ps.executeUpdate();
             
-            c.fecharConexao();
+            //c.fecharConexao();
             
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            c.fecharConexao();
-        }
+        } //finally {
+            //c.fecharConexao();
+        //}
         
         return false;
     }
@@ -123,14 +123,14 @@ public class GaloDAO {
             ps.setInt(6, g.getIdGalo());
             ps.executeUpdate();
             
-            c.fecharConexao();
+           //c.fecharConexao();
             
             return true;
         } catch (SQLException e) {
             e.printStackTrace(); 
-        } finally {
-            c.fecharConexao();
-        }
+        } //finally {
+            //c.fecharConexao();
+        //}
         
         return false;
     }
@@ -154,14 +154,14 @@ public class GaloDAO {
                 galo.setLife(rs.getInt("life"));
                 galo.setSenha(rs.getString("senha")); 
 
-                c.fecharConexao();
+                //c.fecharConexao();
                 return galo;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            c.fecharConexao();
-        }
+        } //finally {
+            //c.fecharConexao();
+        //}
 
         return null;
     }
@@ -176,13 +176,13 @@ public class GaloDAO {
             PreparedStatement ps = con.prepareStatement(query);
             ps.executeUpdate();
 
-            c.fecharConexao();
+            //c.fecharConexao();
 
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            c.fecharConexao();
-        }
+        }//finally {
+            //c.fecharConexao();
+        //}
     }
 
 }
